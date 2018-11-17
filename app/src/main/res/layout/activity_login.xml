@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/smu_logo" />
+
+    <EditText
+        android:id="@+id/passWd"
+        android:layout_width="186dp"
+        android:layout_height="31dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="136dp"
+        android:hint="PASSWORD"
+        android:inputType="textPassword"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/uid"
+        android:layout_width="186dp"
+        android:layout_height="31dp"
+        android:layout_above="@+id/passWd"
+        android:layout_centerHorizontal="true"
+        android:hint="ID"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/logInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_alignEnd="@+id/passWd"
+        android:layout_below="@+id/passWd"
+        android:layout_marginTop="-136dp"
+        android:background="#ffffff"
+        android:text="LOGIN"
+        android:textColor="#0f12af"
+        android:textSize="10sp" />
+</RelativeLayout>
