@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="15dp"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="상명대학교 종합예약 시스템 회원가입"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
+
+    <!-- 아이디 입력 및 중복 체크-->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="30dp">
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:text="ID : "/>
+
+    <EditText
+        android:id="@+id/signUpId"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:maxLength="15"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/isIdCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="#ffffff"
+        android:textColor="#0f12af"
+        android:text="중복 확인"
+
+        />
+
+</LinearLayout>
+
+
+    <!--비밀번호 입력 및-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="PW :  "/>
+
+        <EditText
+            android:id="@+id/signUpPw"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:maxLength="15"
+            android:textSize="18dp"
+            android:inputType="textPassword"
+            />
+    </LinearLayout>
+
+    <!--이름 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="이름 :"/>
+
+        <EditText
+            android:id="@+id/signUpName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:maxLength="4"
+            android:textSize="18dp"
+            android:inputType="text"
+            android:hint="이종혁"
+            />
+    </LinearLayout>
+
+
+    <!--학과 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="학부 : "/>
+
+        <Spinner
+            android:id="@+id/signUpBigDepart"
+            android:layout_width="230dp"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/big_depart"/>
+
+
+
+    </LinearLayout>
+
+    <!--학과 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="학과 : "/>
+
+        <Spinner
+            android:id="@+id/signUpDepart"
+            android:layout_width="230dp"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <!--번호 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Tel : "/>
+
+        <EditText
+            android:id="@+id/signUpTel_1"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:maxLength="3"
+            android:textSize="18dp"
+            android:inputType="number"
+            android:text="010"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:hint="010"
+            />
+
+        <EditText
+            android:id="@+id/signUpTel_2"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:maxLength="4"
+            android:textSize="18dp"
+            android:inputType="number"
+            android:hint="0000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:inputType="number"
+            android:hint="010"
+            />
+
+        <EditText
+            android:id="@+id/signUpTel_3"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:maxLength="4"
+            android:textSize="18dp"
+            android:inputType="number"
+            android:hint="0000"
+            />
+    </LinearLayout>
+
+    <!--학과 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="학생증 : "/>
+
+        <TextView
+            android:id="@+id/stu_image"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="#ff0000"
+            android:text="인증을 해주세요"
+            />
+
+        <Button
+            android:id="@+id/checkCard_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:text="사진 전송"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="center">
+
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:text="회원가입"
+            />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

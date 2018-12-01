@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginRequest extends StringRequest {
-    final static private String URL = UserInfo.url+"login.php";
+    final static private String URL = UserInfo.getUrl()+"login.php";
     private Map<String, String> parameters;
 
     public LoginRequest(String uid, String passwd, Response.Listener<String> listener) {
         super(Request.Method.POST, URL, listener, null);
 
         parameters = new HashMap<>();
-        parameters.put("uid", uid);
-        parameters.put("passwd", passwd);
+        parameters.put("ID", uid);
+        parameters.put("PASS", passwd);
     }
 
     @Override
