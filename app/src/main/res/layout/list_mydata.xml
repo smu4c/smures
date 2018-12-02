@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <TextView
         android:id="@+id/facility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:paddingTop="18dp"
+        android:paddingRight="20dp"
         android:textColor="#000000"
         android:textSize="20dp"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/stText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/facility"
+        android:layout_alignTop="@+id/facility"
+        android:paddingTop="10dp"
+        android:text="대여시작 : "
+        android:textSize="16dp" />
+
+
+
+    <TextView
         android:id="@+id/startTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="114dp"
+        android:layout_alignTop="@+id/facility"
+        android:paddingTop="10dp"
         android:textColor="#000000"
-        android:textSize="20dp" />
+        android:layout_toRightOf="@id/stText"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/endText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/stText"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:text="대여종료 : "
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/endTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/startTime"
-        android:layout_below="@+id/facility"
+        android:paddingBottom="10dp"
+        android:layout_toRightOf="@id/endText"
+        android:layout_alignParentBottom="true"
         android:textColor="#000000"
-        android:textSize="20dp" />
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="33dp"
+        android:layout_toRightOf="@id/endTime"
+        android:paddingTop="16dp"
+        android:lineSpacingExtra="2dp"
+        android:text="학과장\n미승인"
+        android:textSize="12dp"
+        android:textStyle="bold" />
+    <!--android:textColor="#0037ff"-->
+    <ImageView
+        android:id="@+id/status_ImgView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:padding="10dp"
+        android:src="@drawable/icon_squash"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -7,6 +7,11 @@ public class UserInfo {
     private static String department = "";
     private static String phoneNum = "";
     private static String type ="";
+    //교수 : Id, 전화번호, 이름
+    //대학 : Id(대학명), 전화번호
+    //시설 : Id
+    //학생 : Id, name, 학과, 전화번호
+
 
     public static String getUid() { return uid; }
     public static void setUid(String uid) { UserInfo.uid = uid; }
