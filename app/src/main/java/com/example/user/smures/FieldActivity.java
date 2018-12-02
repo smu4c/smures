@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,20 +15,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class FieldActivity extends Fragment {
     private View v;
+    private int month, day, year;
+    private String year_s, month_s, day_s, sumDate;
+    private String myJSON;
+    private ListView fieldListView;
+    private ArrayList<HashMap<String, String>> fieldDataList;
+
+    private JSONArray myData = null;
+
     private Button res;
-    private long now;
-    private Date date;
-    private SimpleDateFormat simpleDateFormatYear, simpleDateFormatMon, simpleDateFormatDay;
-    private String year, month, day;
-    private int selectYear, selectMonth, selectDay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -35,78 +56,127 @@ public class FieldActivity extends Fragment {
 
         res = (Button) v.findViewById(R.id.field_res);
 
-        now = System.currentTimeMillis();
-        date = new Date(now);
-        simpleDateFormatYear = new SimpleDateFormat("yyyy");
-        simpleDateFormatMon = new SimpleDateFormat("M");
-        simpleDateFormatDay = new SimpleDateFormat("d");
-
-        year = simpleDateFormatYear.format(date);
-        month = simpleDateFormatMon.format(date);
-        day = simpleDateFormatDay.format(date);
-
         res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar pickedDate = Calendar.getInstance();
-                Calendar minDate = Calendar.getInstance();
-                Calendar maxDate = Calendar.getInstance();
+                Intent intent = new Intent(getActivity(), ReservationActivity.class);
+                intent.putExtra("department","운동장");
+                startActivity(intent);
+            }
+        });
 
-                pickedDate.set(Integer.parseInt(day),Integer.parseInt(month)-1,Integer.parseInt(day)+1);
+        //* starts before 1 month from now *//*
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        //* ends after 1 month from now *//*
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
 
-                                selectYear = year;
-                                selectMonth = month+1;
-                                selectDay = dayOfMonth;
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(v, R.id.calendarField)
+                .range(startDate, endDate)
+                .datesNumberOnScreen(5)
+                .build();
 
-                                if(permissionCheck== PackageManager.PERMISSION_DENIED){   // 권한 없음
-                                    requestPermissions(new String[]{Manifest.permission.CAMERA},0);
-                                } else{   //권한 있음
-                                    Intent intent = new Intent(getActivity(), CamActivity.class);
-                                    intent.putExtra("year",selectYear);
-                                    intent.putExtra("month",selectMonth);
-                                    intent.putExtra("day",selectDay);
-                                    startActivity(intent);
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Calendar date, int position) {
+                month = date.get(Calendar.MONTH)+1;
+                day = date.get(Calendar.DAY_OF_MONTH);
+                year = date.get(Calendar.YEAR);
 
-                                    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent,1);*/
-                                }
-                                Toast.makeText(getActivity(),"select date : "+ selectYear + "-"+selectMonth+"-"+selectDay,Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        pickedDate.get(Calendar.YEAR),
-                        pickedDate.get(Calendar.MONTH),
-                        pickedDate.get(Calendar.DATE)
-                );
+                year_s = String.valueOf(year);
+                month_s = String.valueOf(month);
 
-                minDate.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day)+1);
-                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                if(day<10) {
+                    day_s = "0"+String.valueOf(day);
+                }
+                else {
+                    day_s = String.valueOf(day);
+                }
+                sumDate = year_s+"-"+month_s+"-"+day_s+" "+"00:00:00";
 
-                maxDate.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day)+8);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
-
-                datePickerDialog.show();
+                Toast.makeText(getActivity(), sumDate, Toast.LENGTH_SHORT).show();
             }
         });
         return v;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            Intent intent = new Intent(getActivity(), CamActivity.class);
-            intent.putExtra("year",selectYear);
-            intent.putExtra("month",selectMonth);
-            intent.putExtra("day",selectDay);
-            startActivity(intent);
-        } else{
-            Toast.makeText(getActivity(),"예약하려면 권한을 승낙하여야 합니다.",Toast.LENGTH_SHORT).show();
+    protected void showList() {
+        try {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            myData = jsonObj.getJSONArray("response");
+
+            for (int i = 0; i < myData.length(); i++) {
+                JSONObject c = myData.getJSONObject(i);
+
+                String stdCode = c.getString("학번");
+                String startTime = c.getString("시작시간");
+                String endTime = c.getString("종료시간");
+
+                HashMap<String, String> fieldDataMap = new HashMap<String, String>();
+                fieldDataMap.put("학번", stdCode);
+                fieldDataMap.put("시작시간", startTime);
+                fieldDataMap.put("종료시간", endTime);
+                fieldDataList.add(fieldDataMap);
+            }
+
+            final ListAdapter adapter = new SimpleAdapter(
+                    getActivity(),
+                    fieldDataList, R.layout.list_mydata,
+                    new String[]{"학번", "시작시간", "종료시간"},
+                    new int[]{R.id.facility, R.id.startTime, R.id.endTime}
+            );
+
+            fieldListView.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    class GetDataJSON extends AsyncTask<String, Void, String> {
+        String target;
+        @Override
+
+        protected void onPreExecute() {
+            try {
+                target = UserInfo.getUrl()+"GetResData.php?kind=운동장"+"&date="+sumDate;;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected String doInBackground(String... voids) {
+            BufferedReader bufferedReader = null;
+
+            try {
+                URL url = new URL(target);
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = con.getInputStream();
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                con.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            myJSON = result;
+            showList();
         }
     }
 }
