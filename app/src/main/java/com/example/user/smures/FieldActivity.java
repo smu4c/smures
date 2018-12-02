@@ -10,14 +10,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -115,6 +118,7 @@ public class FieldActivity extends Fragment {
                 getDataJSON.execute();
             }
         });
+
         return v;
     }
 
@@ -127,10 +131,15 @@ public class FieldActivity extends Fragment {
                 JSONObject c = myData.getJSONObject(i);
 
                 String stdCode = c.getString("단체명");
+                String name = c.getString("이름");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
+                startTime = startTime.substring(11, 16);
+                endTime = endTime.substring(11, 16);
+
                 HashMap<String, String> fieldDataMap = new HashMap<String, String>();
+                fieldDataMap.put("이름", name);
                 fieldDataMap.put("단체명", stdCode);
                 fieldDataMap.put("시작시간", startTime);
                 fieldDataMap.put("종료시간", endTime);
@@ -140,8 +149,8 @@ public class FieldActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     fieldDataList, R.layout.list_mydata,
-                    new String[]{"단체명", "시작시간", "종료시간"},
-                    new int[]{R.id.facility, R.id.startTime, R.id.endTime}
+                    new String[]{"이름", "단체명", "시작시간", "종료시간"},
+                    new int[]{R.id.userName, R.id.facility, R.id.startTime, R.id.endTime}
             );
 
             fieldListView.setAdapter(adapter);

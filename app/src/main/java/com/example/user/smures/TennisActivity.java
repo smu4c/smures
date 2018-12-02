@@ -131,10 +131,15 @@ public class TennisActivity extends Fragment {
                 JSONObject c = myData.getJSONObject(i);
 
                 String stdCode = c.getString("단체명");
+                String name = c.getString("이름");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
+                startTime = startTime.substring(11, 16);
+                endTime = endTime.substring(11, 16);
+
                 HashMap<String, String> tennisDataMap = new HashMap<String, String>();
+                tennisDataMap.put("이름", name);
                 tennisDataMap.put("단체명", stdCode);
                 tennisDataMap.put("시작시간", startTime);
                 tennisDataMap.put("종료시간", endTime);
@@ -144,8 +149,8 @@ public class TennisActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     tennisDataList, R.layout.list_mydata,
-                    new String[]{"단체명", "시작시간", "종료시간"},
-                    new int[]{R.id.facility, R.id.startTime, R.id.endTime}
+                    new String[]{"이름", "단체명", "시작시간", "종료시간"},
+                    new int[]{R.id.userName, R.id.facility, R.id.startTime, R.id.endTime}
             );
 
             tennisListView.setAdapter(adapter);

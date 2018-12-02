@@ -121,10 +121,15 @@ public class NoActivity extends Fragment {
                 JSONObject c = myData.getJSONObject(i);
 
                 String stdCode = c.getString("단체명");
+                String name = c.getString("이름");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
+                startTime = startTime.substring(11, 16);
+                endTime = endTime.substring(11, 16);
+
                 HashMap<String, String> noDataMap = new HashMap<String, String>();
+                noDataMap.put("이름", name);
                 noDataMap.put("단체명", stdCode);
                 noDataMap.put("시작시간", startTime);
                 noDataMap.put("종료시간", endTime);
@@ -134,8 +139,8 @@ public class NoActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     noDataList, R.layout.list_mydata,
-                    new String[]{"단체명", "시작시간", "종료시간"},
-                    new int[]{R.id.facility, R.id.startTime, R.id.endTime}
+                    new String[]{"이름", "단체명", "시작시간", "종료시간"},
+                    new int[]{R.id.userName, R.id.facility, R.id.startTime, R.id.endTime}
             );
 
             noListView.setAdapter(adapter);

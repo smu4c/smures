@@ -57,7 +57,11 @@
         <activity
             android:name=".ResIntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Main2Activity"></activity>
+        <activity
+            android:name=".Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ApproveActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

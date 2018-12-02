@@ -165,6 +165,9 @@ public class MainActivity extends AppCompatActivity
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
+                startTime = startTime.substring(11, 16);
+                endTime = endTime.substring(11, 16);
+
                 HashMap<String, String> myDataMap = new HashMap<String, String>();
                 myDataMap.put("시설", facility);
                 myDataMap.put("시작시간", startTime);
