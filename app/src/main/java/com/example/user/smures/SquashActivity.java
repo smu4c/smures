@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,13 @@ public class SquashActivity extends Fragment {
     private int selectYear, selectMonth, selectDay;
 
     @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.activity_squash, container, false);
-
         res = (Button) v.findViewById(R.id.squash_res);
 
         now = System.currentTimeMillis();
@@ -51,9 +56,10 @@ public class SquashActivity extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), ReservationActivity.class);
-                intent.putExtra("department","스쿼시장");
+                Intent intent = new Intent(getActivity(), ResIntroActivity.class);
+                intent.putExtra("department","테니스장");
                 startActivity(intent);
+
 
 
 

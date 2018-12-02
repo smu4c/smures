@@ -1,0 +1,50 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="30dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="【유의사항】"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        android:text="1. 승인단체 및 용도 외 사용 불가. (양도 불가)\n\n
+2. 체육시설 사용시 각종 비품 및 시설물(조명포함)은 시설관리팀의 사용 안내를 받아 사용하여야 합니다.\n\n
+3. 반드시 -총무인사팀(본관 1층)의 협조를 얻어야 합니다.\n\n
+4. 사용중 시설물 및 비품의 고장, 파손, 도난에 대한 번상은 사용책임자(단체)에게 부과됩니다. (변상방법은 원상복귀 또는 현물/현금 변상)\n\n
+5. 사용 승인 후 교내 외 주요 행사 등의 사유로 취소 통보 시 이의를 제기하지 않는다.\n\n
+6. 위 유의사항 위반시 승인 취소 및 퇴실(교) 조치에 이의를 제기하지 않는다.\n\n
+7. 기타\n\n\n
+가. 사용일 7일 이전 신청.(승인은 신청서 접수순에 따라 배정. 단, 행사의 중요도에 따라 조정될 수 있음)\n\n
+나. 승인 여부는 시청담당자 에게 유선 통보합니다.\n\n
+다. 건물 내에서는 금연이며, 체육관 및 테니스장은 음식물 반입 금지.\n\n
+라. 사용 전 시설물을 점검하고, 사용 후 정리정돈을 깨끗이 해야 함.\n\n
+마. 승인 후 사용방법 및 절차, 기타 사항은 추후 안내."
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_gravity="center"
+        android:text="상기의 사용목적 및 유의사항을 준수합니다." />
+
+</LinearLayout>
+    </ScrollView>

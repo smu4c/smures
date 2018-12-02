@@ -45,12 +45,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.LoginBar" />
+        <activity android:name=".ResIntroActivity"
+            android:theme="@style/AppTheme.LoginBar"/>
         <activity android:name=".SignUpActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.LoginBar" />
         <activity android:name=".ReservationActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.LoginBar"/>
         <activity android:name=".CameraActivity" />
         <activity android:name=".CamActivity"></activity>
     </application>
