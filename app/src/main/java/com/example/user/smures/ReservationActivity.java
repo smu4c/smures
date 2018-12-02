@@ -87,11 +87,6 @@ public class ReservationActivity extends AppCompatActivity {
 
         date_tv.setText(currentDate());
 
-
-
-
-
-
         selectStartTime_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
