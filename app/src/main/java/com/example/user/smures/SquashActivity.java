@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,13 @@ public class SquashActivity extends Fragment {
     private Button res;
 
     @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.activity_squash, container, false);
-
         res = (Button) v.findViewById(R.id.squash_res);
         squashListView = (ListView) v.findViewById(R.id.squashListView);
 
@@ -56,8 +61,14 @@ public class SquashActivity extends Fragment {
 
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 Intent intent = new Intent(getActivity(), ReservationActivity.class);
                 intent.putExtra("department","체육관");
+=======
+
+                Intent intent = new Intent(getActivity(), ResIntroActivity.class);
+                intent.putExtra("department","테니스장");
+>>>>>>> origin/giyeon
                 startActivity(intent);
             }
         });
@@ -75,6 +86,7 @@ public class SquashActivity extends Fragment {
                 .datesNumberOnScreen(5)
                 .build();
 
+<<<<<<< HEAD
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
@@ -98,6 +110,13 @@ public class SquashActivity extends Fragment {
         });
         return v;
     }
+=======
+
+                /*
+                Calendar pickedDate = Calendar.getInstance();
+                Calendar minDate = Calendar.getInstance();
+                Calendar maxDate = Calendar.getInstance();
+>>>>>>> origin/giyeon
 
     protected void showList() {
         try {
