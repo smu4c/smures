@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="15dp"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="편의시설 예약하기"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
+
+    <!-- 사용자 ID, 사용자 이름 확인창-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="ID : "/>
+
+        <EditText
+            android:id="@+id/resIdEdt"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            android:gravity="center"
+            android:text="201421289"
+            android:enabled="false"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="시설 : "/>
+
+        <EditText
+            android:id="@+id/resFacilityEdt"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            android:gravity="center"
+            android:text="스쿼시장"
+            android:enabled="false"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+
+
+    </LinearLayout>
+
+    <!-- 사용자 ID, 사용자 이름 확인창-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="이름 : "/>
+
+        <EditText
+            android:id="@+id/resNameEdt"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            android:gravity="center"
+            android:text="김기연"
+            android:enabled="false"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="학과 : "/>
+
+        <EditText
+            android:id="@+id/resDepartmentEdt"
+            android:layout_width="match_parent"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:maxLength="15"
+            android:gravity="center"
+            android:text="정보통신공학과"
+            android:enabled="false"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="날짜:" />
+
+        <TextView
+            android:id="@+id/resSelectDateTV"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="____ - __ - __"
+            android:textSize="18dp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/resSelectDateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:layout_marginLeft="15dp"
+            android:text="날짜 선택"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="시간:" />
+
+        <TextView
+            android:id="@+id/resStartTimeTV"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="__ : __"
+            android:textSize="18dp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/resStartTimeBtn"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:text="시작시간"/>
+
+        <TextView
+            android:id="@+id/resEndTimeTV"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="__ : __"
+            android:textSize="18dp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/resEndTimeBtn"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:text="종료시간"/>
+
+    </LinearLayout>
+
+
+    <!--단체명 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="단체명 :" />
+
+
+        <EditText
+            android:id="@+id/resGroupNameEdt"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:maxLength="15"
+            android:gravity="center"
+            android:maxLines="1"
+            android:hint="동아리"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="사용인원 : "/>
+
+        <EditText
+            android:id="@+id/resPeopleCountEdt"
+            android:layout_width="45dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:maxLength="3"
+            android:textSize="18dp"
+            android:inputType="number"
+            android:hint="00"
+            />
+
+    </LinearLayout>
+
+    <!--신청사유 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:maxLines="1"
+            android:text="신청사유 :" />
+
+        <EditText android:id="@+id/resReasonEdt"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:lines="3" android:gravity="top|left" android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:maxLength="75"
+            android:scrollHorizontally="false"
+            android:hint="ex) 학과 축구경기 or 스쿼시 강습"
+            android:minWidth="10.0dip"
+            android:maxWidth="5.0dip"/>
+
+    </LinearLayout>
+
+    <!--협조내용 입력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:maxLines="1"
+            android:text="협조내용 :" />
+
+        <EditText android:id="@+id/resCooperationEdt"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:lines="2" android:gravity="top|left" android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:maxLength="50"
+            android:scrollHorizontally="false"
+            android:minWidth="10.0dip"
+            android:maxWidth="5.0dip"
+            android:hint="ex) 전광등 사용, 축구복 대여"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/resSubmitBtn"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:textColor="#0f12af"
+            android:text="신청"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -47,8 +47,18 @@ public class SquashActivity extends Fragment {
         day = simpleDateFormatDay.format(date);
 
         res.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), ReservationActivity.class);
+                intent.putExtra("department","스쿼시장");
+                startActivity(intent);
+
+
+
+
+                /*
                 Calendar pickedDate = Calendar.getInstance();
                 Calendar minDate = Calendar.getInstance();
                 Calendar maxDate = Calendar.getInstance();
@@ -75,8 +85,8 @@ public class SquashActivity extends Fragment {
                                     intent.putExtra("day",selectDay);
                                     startActivity(intent);
 
-                                    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent,1);*/
+                                    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    //startActivityForResult(intent,1);
                                 }
                                 Toast.makeText(getActivity(),"select date : "+ selectYear + "-"+selectMonth+"-"+selectDay,Toast.LENGTH_LONG).show();
                             }
@@ -84,6 +94,7 @@ public class SquashActivity extends Fragment {
                         pickedDate.get(Calendar.YEAR),
                         pickedDate.get(Calendar.MONTH),
                         pickedDate.get(Calendar.DATE)
+
                 );
 
                 minDate.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day)+1);
@@ -93,8 +104,11 @@ public class SquashActivity extends Fragment {
                 datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
 
                 datePickerDialog.show();
+                */
             }
+
         });
+
         return v;
     }
 

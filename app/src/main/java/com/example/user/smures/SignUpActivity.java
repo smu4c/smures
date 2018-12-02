@@ -28,21 +28,15 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-
-import javax.net.ssl.HttpsURLConnection;
-
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -87,10 +81,10 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         byteArrayOutputStream = new ByteArrayOutputStream();
 
-        setEditText();
+        setLayout();
     }
 
-    private void setEditText() {
+    private void setLayout() {
 
         big_spinner = (Spinner)findViewById(R.id.signUpBigDepart);
         mini_spinner = (Spinner)findViewById(R.id.signUpDepart);
@@ -104,11 +98,6 @@ public class SignUpActivity extends AppCompatActivity {
         checkCard_btn = (Button)findViewById(R.id.checkCard_photo);
         signUp_btn = (Button)findViewById(R.id.signUpBtn);
         imageCheck_tv = (TextView)findViewById(R.id.stu_image);
-
-
-
-
-
 
         signUp_btn.setOnClickListener(new View.OnClickListener() {
             @Override
