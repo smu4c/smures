@@ -61,14 +61,8 @@ public class SquashActivity extends Fragment {
 
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                Intent intent = new Intent(getActivity(), ReservationActivity.class);
-                intent.putExtra("department","체육관");
-=======
-
                 Intent intent = new Intent(getActivity(), ResIntroActivity.class);
-                intent.putExtra("department","테니스장");
->>>>>>> origin/giyeon
+                intent.putExtra("department","체육관");
                 startActivity(intent);
             }
         });
@@ -86,7 +80,7 @@ public class SquashActivity extends Fragment {
                 .datesNumberOnScreen(5)
                 .build();
 
-<<<<<<< HEAD
+
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
@@ -110,13 +104,7 @@ public class SquashActivity extends Fragment {
         });
         return v;
     }
-=======
 
-                /*
-                Calendar pickedDate = Calendar.getInstance();
-                Calendar minDate = Calendar.getInstance();
-                Calendar maxDate = Calendar.getInstance();
->>>>>>> origin/giyeon
 
     protected void showList() {
         try {

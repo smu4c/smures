@@ -59,7 +59,7 @@ public class FieldActivity extends Fragment {
         res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReservationActivity.class);
+                Intent intent = new Intent(getActivity(), ResIntroActivity.class);
                 intent.putExtra("department","운동장");
                 startActivity(intent);
             }

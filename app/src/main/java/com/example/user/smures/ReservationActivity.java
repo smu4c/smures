@@ -103,10 +103,6 @@ public class ReservationActivity extends AppCompatActivity {
         facility_edt.setText(getIntent().getStringExtra("department"));
         name_edt.setText(UserInfo.getName());
         department_edt.setText(UserInfo.getDepartment());
-
-
-<<<<<<< HEAD
-=======
         date_tv.setText(resDateFormat);
         resDateFormat = currentDate();
 
@@ -161,8 +157,6 @@ public class ReservationActivity extends AppCompatActivity {
         });
 
 
-
->>>>>>> origin/giyeon
         selectStartTime_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
