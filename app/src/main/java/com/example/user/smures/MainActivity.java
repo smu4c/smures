@@ -24,9 +24,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
@@ -34,11 +37,13 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private int month, day, year;
-    private String year_s, month_s, day_s, sumDate;
+    private String year_s, month_s, day_s, sumDate, dateFormat;
     private String myJSON;
     private ListView myDataListView;
+    private Date date;
+    private long now;
     private ArrayList<HashMap<String, String>> myDataList;
-
+    private SimpleDateFormat simpleDateFormat;
     private JSONArray myData = null;
 
     @Override
@@ -48,8 +53,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //GetDataJSON getDataJSON = new GetDataJSON();
-        //getDataJSON.execute();
+        now = System.currentTimeMillis();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        date = new Date(now);
+        dateFormat = simpleDateFormat.format(date);
+        sumDate = dateFormat+"00:00:00";
+
+        GetDataJSON getDataJSON = new GetDataJSON();
+        getDataJSON.execute();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

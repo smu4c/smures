@@ -17,9 +17,9 @@
     <ListView
         android:id="@+id/fieldListView"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
-        android:layout_above="@+id/field_res"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/calendarField" />
 
     <Button
         android:layout_width="match_parent"

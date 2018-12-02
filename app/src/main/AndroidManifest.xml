@@ -54,9 +54,10 @@
             android:name=".ReservationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CamActivity" />
-        <activity android:name=".ResIntroActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".ResIntroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>

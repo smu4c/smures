@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
@@ -45,18 +46,28 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 public class TennisActivity extends Fragment {
     private View v;
     private int month, day, year;
-    private String year_s, month_s, day_s, sumDate;
+    private String year_s, month_s, day_s, sumDate, dateFormat;
     private String myJSON;
     private ListView tennisListView;
     private ArrayList<HashMap<String, String>> tennisDataList;
-
+    private Date date;
+    private long now;
+    private SimpleDateFormat simpleDateFormat;
     private JSONArray myData = null;
-
     private Button res;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.activity_tennis, container, false);
+
+        now = System.currentTimeMillis();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        date = new Date(now);
+        dateFormat = simpleDateFormat.format(date);
+        sumDate = dateFormat+"00:00:00";
+
+        GetDataJSON getDataJSON = new GetDataJSON();
+        getDataJSON.execute();
 
         res = (Button) v.findViewById(R.id.tennis_res);
 
@@ -150,7 +161,7 @@ public class TennisActivity extends Fragment {
 
         protected void onPreExecute() {
             try {
-                target = UserInfo.getUrl()+"GetAllResData.php?kind=테니스장"+"&date="+sumDate;;
+                target = UserInfo.getUrl()+"GetAllResData.php?kind=테니스장"+"&date="+sumDate;
             }
             catch (Exception e) {
                 e.printStackTrace();

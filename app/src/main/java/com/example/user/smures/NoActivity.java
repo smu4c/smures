@@ -23,9 +23,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
@@ -33,19 +36,29 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 public class NoActivity extends Fragment {
     private View v;
     private int month, day, year;
-    private String year_s, month_s, day_s, sumDate;
+    private String year_s, month_s, day_s, sumDate, dateFormat;
     private String myJSON;
     private ListView noListView;
     private ArrayList<HashMap<String, String>> noDataList;
-
+    private Date date;
+    private long now;
+    private SimpleDateFormat simpleDateFormat;
     private JSONArray myData = null;
-
     private Button res;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.activity_no, container, false);
         res = (Button) v.findViewById(R.id.no_res);
+
+        now = System.currentTimeMillis();
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        date = new Date(now);
+        dateFormat = simpleDateFormat.format(date);
+        sumDate = dateFormat+"00:00:00";
+
+        GetDataJSON getDataJSON = new GetDataJSON();
+        getDataJSON.execute();
 
         noListView = (ListView) v.findViewById(R.id.noListView);
         noDataList = new ArrayList<>();
@@ -99,7 +112,6 @@ public class NoActivity extends Fragment {
         return v;
     }
 
-
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
@@ -112,11 +124,11 @@ public class NoActivity extends Fragment {
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
-                HashMap<String, String> squashDataMap = new HashMap<String, String>();
-                squashDataMap.put("단체명", stdCode);
-                squashDataMap.put("시작시간", startTime);
-                squashDataMap.put("종료시간", endTime);
-                noDataList.add(squashDataMap);
+                HashMap<String, String> noDataMap = new HashMap<String, String>();
+                noDataMap.put("단체명", stdCode);
+                noDataMap.put("시작시간", startTime);
+                noDataMap.put("종료시간", endTime);
+                noDataList.add(noDataMap);
             }
 
             final ListAdapter adapter = new SimpleAdapter(
@@ -139,7 +151,7 @@ public class NoActivity extends Fragment {
 
         protected void onPreExecute() {
             try {
-                target = UserInfo.getUrl()+"GetResData.php?kind=노천극장"+"&date="+sumDate;;
+                target = UserInfo.getUrl()+"GetAllResData.php?kind=노천극장"+"&date="+sumDate;
             }
             catch (Exception e) {
                 e.printStackTrace();
