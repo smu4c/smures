@@ -1,9 +1,6 @@
 package com.example.user.smures;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -19,12 +18,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-import java.util.regex.Pattern;
-
 public class LoginActivity extends AppCompatActivity {
     private EditText uid, passwd;
-    private Button login;
-    private Button signupBtn;
+    private Button login, signupBtn;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
     private AlertDialog dialog;
     private final String TAG = "LoginActivity";
 
@@ -36,13 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         uid = (EditText) findViewById(R.id.uid);
         passwd = (EditText) findViewById(R.id.passWd);
         login = (Button) findViewById(R.id.logInBtn);
-        signupBtn = (Button)findViewById(R.id.signUpBtn);
+        signupBtn = (Button) findViewById(R.id.signUpBtn);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         uid.setFocusableInTouchMode(true);
         uid.requestFocus();
 
         setEventListener();
-
     }
 
     private void setEventListener() {
@@ -58,31 +56,18 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {   //Login Button ClickListener
             @Override
             public void onClick(View v) {
-                loginUser(uid.getText().toString(), passwd.getText().toString());
+                int id = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) findViewById(id);
 
-                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //startActivity(intent);
-                //overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
-                //finish();
-                /*if(uid.getText().toString().equals("") || passwd.getText().toString().equals("")) {   //email 과 password 입력 안 했을 경우
-                    Toast.makeText(LoginActivity.this, "빈 곳 없이 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Pattern.matches("^[0-9]+$", uid.getText().toString())) {
-                    Toast.makeText(LoginActivity.this, "ID는 학번입니다.", Toast.LENGTH_SHORT).show();
-                }
-                else if(uid.getText().toString().length()==9) {
-                    loginUser(uid.getText().toString(), passwd.getText().toString());   //login 함수 실행
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "ID OR PASSWORD ERROR", Toast.LENGTH_SHORT).show();
-                }*/
+                Toast.makeText(getApplicationContext(),radioButton.getText().toString(),Toast.LENGTH_SHORT).show();
+
+                loginUser(uid.getText().toString(), passwd.getText().toString(), radioButton.getText().toString());
             }
         });
 
     }
 
-
-    private void loginUser(final String uid, final String passwd) {
+    private void loginUser(final String uid, final String passwd, final String check) {
         Response.Listener<String> responseLister = new Response.Listener<String>(){
 
             @Override
@@ -131,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        LoginRequest loginRequest = new LoginRequest(uid, passwd, responseLister);   //아이디와 패스워드를 서버에 있는 php로 보내기 위한 클래스에 인자를 넘겨준다.
+        LoginRequest loginRequest = new LoginRequest(uid, passwd, check, responseLister);   //아이디와 패스워드를 서버에 있는 php로 보내기 위한 클래스에 인자를 넘겨준다.
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         queue.add(loginRequest);
     }

@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //GetDataJSON getDataJSON = new GetDataJSON();
+        //getDataJSON.execute();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,8 +95,6 @@ public class MainActivity extends AppCompatActivity
                 }
                 sumDate = year_s+"-"+month_s+"-"+day_s+" "+"00:00:00";
 
-                Toast.makeText(MainActivity.this, sumDate, Toast.LENGTH_SHORT).show();
-
                 GetDataJSON getDataJSON = new GetDataJSON();
                 getDataJSON.execute();
             }
@@ -118,14 +119,22 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new HomeActivity()).commit();
+            myDataList.clear();
         } else if (id == R.id.nav_field) {
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new FieldActivity()).commit();
+            myDataList.clear();
         } else if (id == R.id.nav_squash) {
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new SquashActivity()).commit();
+            myDataList.clear();
         } else if (id == R.id.nav_tennis) {
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new TennisActivity()).commit();
+            myDataList.clear();
+        } else if (id == R.id.nav_no) {
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new NoActivity()).commit();
+            myDataList.clear();
         } else if (id == R.id.nav_setting) {
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out).replace(R.id.content_main, new SettingActivity()).commit();
+            myDataList.clear();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

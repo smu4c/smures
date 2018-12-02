@@ -60,6 +60,9 @@ public class TennisActivity extends Fragment {
 
         res = (Button) v.findViewById(R.id.tennis_res);
 
+        tennisListView = (ListView) v.findViewById(R.id.tennisListView);
+        tennisDataList = new ArrayList<>();
+
         res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +88,7 @@ public class TennisActivity extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
+                tennisDataList.clear();
                 month = date.get(Calendar.MONTH)+1;
                 day = date.get(Calendar.DAY_OF_MONTH);
                 year = date.get(Calendar.YEAR);
@@ -100,7 +104,8 @@ public class TennisActivity extends Fragment {
                 }
                 sumDate = year_s+"-"+month_s+"-"+day_s+" "+"00:00:00";
 
-                Toast.makeText(getActivity(), sumDate, Toast.LENGTH_SHORT).show();
+                GetDataJSON getDataJSON = new GetDataJSON();
+                getDataJSON.execute();
             }
         });
         return v;
@@ -114,12 +119,12 @@ public class TennisActivity extends Fragment {
             for (int i = 0; i < myData.length(); i++) {
                 JSONObject c = myData.getJSONObject(i);
 
-                String stdCode = c.getString("학번");
+                String stdCode = c.getString("단체명");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
                 HashMap<String, String> tennisDataMap = new HashMap<String, String>();
-                tennisDataMap.put("학번", stdCode);
+                tennisDataMap.put("단체명", stdCode);
                 tennisDataMap.put("시작시간", startTime);
                 tennisDataMap.put("종료시간", endTime);
                 tennisDataList.add(tennisDataMap);
@@ -128,7 +133,7 @@ public class TennisActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     tennisDataList, R.layout.list_mydata,
-                    new String[]{"학번", "시작시간", "종료시간"},
+                    new String[]{"단체명", "시작시간", "종료시간"},
                     new int[]{R.id.facility, R.id.startTime, R.id.endTime}
             );
 
@@ -145,7 +150,7 @@ public class TennisActivity extends Fragment {
 
         protected void onPreExecute() {
             try {
-                target = UserInfo.getUrl()+"GetResData.php?kind=테니스장"+"&date="+sumDate;;
+                target = UserInfo.getUrl()+"GetAllResData.php?kind=테니스장"+"&date="+sumDate;;
             }
             catch (Exception e) {
                 e.printStackTrace();

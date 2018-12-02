@@ -56,6 +56,9 @@ public class FieldActivity extends Fragment {
 
         res = (Button) v.findViewById(R.id.field_res);
 
+        fieldListView = (ListView) v.findViewById(R.id.fieldListView);
+        fieldDataList = new ArrayList<>();
+
         res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +84,7 @@ public class FieldActivity extends Fragment {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
+                fieldDataList.clear();
                 month = date.get(Calendar.MONTH)+1;
                 day = date.get(Calendar.DAY_OF_MONTH);
                 year = date.get(Calendar.YEAR);
@@ -96,7 +100,8 @@ public class FieldActivity extends Fragment {
                 }
                 sumDate = year_s+"-"+month_s+"-"+day_s+" "+"00:00:00";
 
-                Toast.makeText(getActivity(), sumDate, Toast.LENGTH_SHORT).show();
+                GetDataJSON getDataJSON = new GetDataJSON();
+                getDataJSON.execute();
             }
         });
         return v;
@@ -110,12 +115,12 @@ public class FieldActivity extends Fragment {
             for (int i = 0; i < myData.length(); i++) {
                 JSONObject c = myData.getJSONObject(i);
 
-                String stdCode = c.getString("학번");
+                String stdCode = c.getString("단체명");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
                 HashMap<String, String> fieldDataMap = new HashMap<String, String>();
-                fieldDataMap.put("학번", stdCode);
+                fieldDataMap.put("단체명", stdCode);
                 fieldDataMap.put("시작시간", startTime);
                 fieldDataMap.put("종료시간", endTime);
                 fieldDataList.add(fieldDataMap);
@@ -124,7 +129,7 @@ public class FieldActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     fieldDataList, R.layout.list_mydata,
-                    new String[]{"학번", "시작시간", "종료시간"},
+                    new String[]{"단체명", "시작시간", "종료시간"},
                     new int[]{R.id.facility, R.id.startTime, R.id.endTime}
             );
 

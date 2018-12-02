@@ -1,8 +1,6 @@
 package com.example.user.smures;
 
 public class UserInfo {
-
-
     private static String uid="";
     private static String url = "http://35.243.113.55/4c/";
     private static String name="";

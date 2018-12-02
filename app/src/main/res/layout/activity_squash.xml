@@ -17,9 +17,9 @@
     <ListView
         android:id="@+id/squashListView"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
-        android:layout_above="@+id/squash_res"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/calendarSquash" />
 
     <Button
         android:id="@+id/squash_res"

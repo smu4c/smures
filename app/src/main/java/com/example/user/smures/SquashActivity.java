@@ -53,8 +53,8 @@ public class SquashActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.activity_squash, container, false);
         res = (Button) v.findViewById(R.id.squash_res);
-        squashListView = (ListView) v.findViewById(R.id.squashListView);
 
+        squashListView = (ListView) v.findViewById(R.id.squashListView);
         squashDataList = new ArrayList<>();
 
         res.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +80,10 @@ public class SquashActivity extends Fragment {
                 .datesNumberOnScreen(5)
                 .build();
 
-
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
+                squashDataList.clear();
                 month = date.get(Calendar.MONTH)+1;
                 day = date.get(Calendar.DAY_OF_MONTH);
                 year = date.get(Calendar.YEAR);
@@ -99,7 +99,8 @@ public class SquashActivity extends Fragment {
                 }
                 sumDate = year_s+"-"+month_s+"-"+day_s+" "+"00:00:00";
 
-                Toast.makeText(getActivity(), sumDate, Toast.LENGTH_SHORT).show();
+                GetDataJSON getDataJSON = new GetDataJSON();
+                getDataJSON.execute();
             }
         });
         return v;
@@ -114,12 +115,12 @@ public class SquashActivity extends Fragment {
             for (int i = 0; i < myData.length(); i++) {
                 JSONObject c = myData.getJSONObject(i);
 
-                String stdCode = c.getString("학번");
+                String stdCode = c.getString("단체명");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
 
                 HashMap<String, String> squashDataMap = new HashMap<String, String>();
-                squashDataMap.put("학번", stdCode);
+                squashDataMap.put("단체명", stdCode);
                 squashDataMap.put("시작시간", startTime);
                 squashDataMap.put("종료시간", endTime);
                 squashDataList.add(squashDataMap);
@@ -128,7 +129,7 @@ public class SquashActivity extends Fragment {
             final ListAdapter adapter = new SimpleAdapter(
                     getActivity(),
                     squashDataList, R.layout.list_mydata,
-                    new String[]{"학번", "시작시간", "종료시간"},
+                    new String[]{"단체명", "시작시간", "종료시간"},
                     new int[]{R.id.facility, R.id.startTime, R.id.endTime}
             );
 
@@ -145,7 +146,7 @@ public class SquashActivity extends Fragment {
 
         protected void onPreExecute() {
             try {
-                target = UserInfo.getUrl()+"GetResData.php?kind=스쿼시장"+"&date="+sumDate;;
+                target = UserInfo.getUrl()+"GetAllResData.php?kind=체육관"+"&date="+sumDate;;
             }
             catch (Exception e) {
                 e.printStackTrace();

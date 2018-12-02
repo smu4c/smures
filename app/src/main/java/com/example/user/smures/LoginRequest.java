@@ -13,12 +13,13 @@ public class LoginRequest extends StringRequest {
     final static private String URL = UserInfo.getUrl()+"login.php";
     private Map<String, String> parameters;
 
-    public LoginRequest(String uid, String passwd, Response.Listener<String> listener) {
+    public LoginRequest(String uid, String passwd, String check, Response.Listener<String> listener) {
         super(Request.Method.POST, URL, listener, null);
 
         parameters = new HashMap<>();
         parameters.put("ID", uid);
         parameters.put("PASS", passwd);
+        parameters.put("CHECK", check);
     }
 
     @Override

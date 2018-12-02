@@ -15,11 +15,15 @@
         <item
             android:id="@+id/nav_squash"
             android:icon="@drawable/icon_squash"
-            android:title="스쿼시예약" />
+            android:title="체육관예약" />
         <item
             android:id="@+id/nav_tennis"
             android:icon="@drawable/icon_tennis"
             android:title="테니스예약" />
+        <item
+            android:id="@+id/nav_no"
+            android:icon="@drawable/icon_no"
+            android:title="노천극장예약" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/icon_setting"
