@@ -59,9 +59,16 @@ public class LoginActivity extends AppCompatActivity {
                 int id = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(id);
 
+                String loginType;
                 Toast.makeText(getApplicationContext(),radioButton.getText().toString(),Toast.LENGTH_SHORT).show();
-
-                loginUser(uid.getText().toString(), passwd.getText().toString(), radioButton.getText().toString());
+                if(radioButton.getText().toString().equals("학장")) {
+                    loginType ="대학";
+                } else if(radioButton.getText().toString().equals("관리인")) {
+                    loginType = "시설";
+                } else {
+                    loginType = radioButton.getText().toString();
+                }
+                loginUser(uid.getText().toString(), passwd.getText().toString(), loginType);
             }
         });
 
@@ -76,12 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");    //json을 통해 넘어 온 값이 success랑 일치하면 true
-                    if(success.equals("student")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                        dialog = builder.setMessage("로그인에 성공했습니다.")
-                                .setPositiveButton("확인", null)
-                                .create();
-                        dialog.show();
+                    if(success.equals("학생")){
 
                         UserInfo.setType(success);
                         UserInfo.setUid(uid);
@@ -90,11 +92,71 @@ public class LoginActivity extends AppCompatActivity {
                         UserInfo.setName(jsonObject.getString("이름"));
                         Log.e(TAG,jsonObject+"");
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        dialog = builder.setMessage(UserInfo.getName()+"님 환영합니다.")
+                                .setPositiveButton("확인", null)
+                                .create();
+                        dialog.show();
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
                         finish();
                     }
+                    else if(success.equals("교수")){
+                        UserInfo.setType(success);
+                        UserInfo.setUid(uid); //id
+                        UserInfo.setPhoneNum(jsonObject.getString("전화번호")); //phoneNum
+                        UserInfo.setName(jsonObject.getString("이름")); //name
+                        Log.e(TAG,jsonObject+"");
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        dialog = builder.setMessage(UserInfo.getName()+"님 환영합니다.")
+                                .setPositiveButton("확인", null)
+                                .create();
+                        dialog.show();
+
+                        Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
+                        finish();
+                    }
+                    else if(success.equals("대학")){
+                        UserInfo.setType(success);
+                        UserInfo.setUid(uid);
+                        UserInfo.setPhoneNum(jsonObject.getString("전화번호")); //phoneNum
+                        UserInfo.setName(uid); //name
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        dialog = builder.setMessage(UserInfo.getName()+"님 환영합니다.")
+                                .setPositiveButton("확인", null)
+                                .create();
+                        dialog.show();
+
+                        Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
+                        finish();
+                    }
+                    else if(success.equals("시설")){
+                        UserInfo.setType(success);
+                        UserInfo.setUid(uid);
+                        UserInfo.setName(uid); //name
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        dialog = builder.setMessage(UserInfo.getName()+"님 환영합니다.")
+                                .setPositiveButton("확인", null)
+                                .create();
+                        dialog.show();
+
+                        Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
+                        finish();
+                    }
+
                     else if (success.equals("ID Error")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                         dialog = builder.setMessage("ID가 존재하지 않습니다.")

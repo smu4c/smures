@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginRequest extends StringRequest {
-    final static private String URL = UserInfo.getUrl()+"login.php";
+    final static private String URL = UserInfo.getUrl()+"sm_login.php";
     private Map<String, String> parameters;
 
     public LoginRequest(String uid, String passwd, String check, Response.Listener<String> listener) {

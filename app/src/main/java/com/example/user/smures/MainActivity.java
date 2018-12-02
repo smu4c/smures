@@ -1,5 +1,7 @@
 package com.example.user.smures;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,10 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -164,25 +171,100 @@ public class MainActivity extends AppCompatActivity
                 String facility = c.getString("시설");
                 String startTime = c.getString("시작시간");
                 String endTime = c.getString("종료시간");
+                String statdus = c.getString("승인현황"); // 0 == 막신청, 1 == 학장 , 2 == 학교, 3== 완전 승인
+
+                startTime = startTime.substring(11, 16);
+                endTime = endTime.substring(11, 16);
 
                 HashMap<String, String> myDataMap = new HashMap<String, String>();
                 myDataMap.put("시설", facility);
                 myDataMap.put("시작시간", startTime);
                 myDataMap.put("종료시간", endTime);
+
+
+                setStatus(myDataMap,Integer.parseInt(statdus));
+
+
+
+
                 myDataList.add(myDataMap);
             }
 
             final ListAdapter adapter = new SimpleAdapter(
                     MainActivity.this,
                     myDataList, R.layout.list_mydata,
-                    new String[]{"시설", "시작시간", "종료시간"},
-                    new int[]{R.id.facility, R.id.startTime, R.id.endTime}
-            );
+                    new String[]{"시설", "시작시간", "종료시간","승인현황","이미지"},
+                    new int[]{R.id.facility, R.id.startTime, R.id.endTime,R.id.status_tv,R.id.status_ImgView}) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+
+                    // Initialize a TextView for ListView each Item
+                    TextView textView = (TextView) view.findViewById(R.id.status_tv);
+
+                    if(textView.getText().toString().contains("미승인")) {
+                        textView.setTextColor(Color.parseColor("#ff0000"));
+                    } else if (textView.getText().toString().contains("확인중")) {
+                        textView.setTextColor(Color.parseColor("#FF00C800"));
+                    } else {
+                        textView.setTextColor(Color.parseColor("#0037ff"));
+                    }
+                    return view;
+
+                }
+            };
+
+
+            for(int i=0 ; i<adapter.getCount() ; i++) {
+
+                View view = adapter.getView(i,null,myDataListView);
+
+                TextView textView = (TextView)view.findViewById(R.id.status_tv);
+
+
+            }
 
             myDataListView.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setStatus( HashMap<String, String> myDataMap,int std) {
+        //음수일때 거부 0 == 막신청, 1 == 학과장 , 2 == 학장, 3== 시설(완전승인)
+        String status="";
+        switch (std) {
+            case -3 :
+                status = "학교\n미승인";
+                myDataMap.put("이미지",Integer.toString(R.drawable.no));
+                break;
+            case -2 :
+                status = "학장\n미승인";
+                myDataMap.put("이미지",Integer.toString(R.drawable.no));
+                break;
+            case -1 :
+                status = "학과장\n미승인";
+                myDataMap.put("이미지",Integer.toString(R.drawable.no));
+                break;
+            case 0 :
+                status = "학과장\n확인중";
+                myDataMap.put("이미지",Integer.toString(R.drawable.ing));
+                break;
+            case 1 :
+                status = "학장\n확인중";
+                myDataMap.put("이미지",Integer.toString(R.drawable.ing));
+                break;
+            case 2 :
+                status = "학교\n확인중";
+                myDataMap.put("이미지",Integer.toString(R.drawable.ing));
+                break;
+            case 3 :
+                status = "승인\n완료";
+                myDataMap.put("이미지",Integer.toString(R.drawable.success));
+                break;
+        }
+
+        myDataMap.put("승인현황", status);
 
     }
 
